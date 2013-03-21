@@ -1,0 +1,17 @@
+{
+  "name": "php-node-demo",
+  "version": "0.0.0",
+  "description": "ERROR: No README.md file found!",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "",
+  "author": "Lee Boynton",
+  "license": "BSD",
+  "dependencies": {
+    "socket.io": "~0.9.13",
+    "memcache": "~0.3.0",
+    "express": "~3.1.0"
+  }
+}
