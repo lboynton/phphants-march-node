@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>PHP-Node Demo</title>
+    <link href="components/bootstrap/docs/assets/css/bootstrap.css" rel="stylesheet" media="screen">
+    <script src="/components/jquery/jquery.js"></script>
+    <script src="/components/underscore/underscore.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      $(document).ready(function()
+      {
+        var socket = io.connect('http://localhost');
+        var template = _.template($('#js-news-template').html());
+        socket.on('news', function (news) {
+          element = template({news: news});
+          $(element).hide().prependTo('#js-news-container').slideDown();
+        });
+      });
+    </script>
+    <script type="text/template" id="js-news-template">
+      <p><%- news %></p>
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Latest News</h1>
+      <div id="js-news-container"></div>
+    </div>
+  </body>
+</html>
