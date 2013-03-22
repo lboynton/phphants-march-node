@@ -5,7 +5,7 @@ var redis    = require('socket.io/node_modules/redis').createClient()
   , server   = require('http').createServer(app)
   , io       = require('socket.io').listen(server)
   , cookie   = require('cookie')
-  , sockets  = [];
+  , sockets  = {};
 
 // connect to memcache on default host/port
 mcClient = new memcache.Client()
@@ -37,19 +37,37 @@ io.set('authorization', function(data, callback)
   });
 });
 
-io.sockets.on('connection', function(socket) {
+io.sockets.on('connection', function(socket) 
+{
   var session = socket.handshake.session;
   console.log('Received connection from user:', session.user);
+  // store user's socket
+  sockets[session.user.username] = socket;
 });
 
 getNews();
 
 function getNews()
 {
-  redis.blpop('news', 0, function(err, news)
+  redis.blpop('news', 0, function(err, data)
   {
-    console.log('news', news);
-    io.sockets.emit('news', news[1]);
+    news = JSON.parse(data[1]);
+
+    if (typeof news.to !== 'undefined')
+    {
+      if (typeof sockets[news.to] !== 'undefined')
+      {
+        // send just the given user the news
+        sockets[news.to].emit('news', news.content);
+      }
+    }
+    else
+    {
+      // send everyone the news
+      io.sockets.emit('news', news.content);
+    }
+
+    // check for more data in next run of the event loop
     process.nextTick(getNews);
   });
 }
