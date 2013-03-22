@@ -1,10 +1,10 @@
 var redis    = require('socket.io/node_modules/redis').createClient()
   , memcache = require('memcache')
   , express  = require('express')
-  , app      = express()
   , server   = require('http').createServer(app)
   , io       = require('socket.io').listen(server)
   , cookie   = require('cookie')
+  , app      = express()
   , sockets  = {};
 
 // connect to memcache on default host/port
