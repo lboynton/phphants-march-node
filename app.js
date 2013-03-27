@@ -1,4 +1,4 @@
-var redis    = require('socket.io/node_modules/redis').createClient()
+var redis    = require('redis').createClient()
   , memcache = require('memcache')
   , express  = require('express')
   , server   = require('http').createServer(app)
@@ -14,6 +14,7 @@ mcClient.connect();
 // run HTTP server on this port
 server.listen(3000);
 
+// only allow authenticated connections
 io.set('authorization', function(data, callback)
 {
   var cookies = cookie.parse(data.headers.cookie);
