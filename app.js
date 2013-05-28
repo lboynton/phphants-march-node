@@ -13,9 +13,9 @@ mcClient.connect();
 server.listen(3000);
 
 // only allow authenticated connections
-io.set('authorization', function(data, callback)
+io.set('authorization', function(handshake, callback)
 {
-  var cookies = cookie.parse(data.headers.cookie);
+  var cookies = cookie.parse(handshake.headers.cookie);
   mcClient.get('sessions/' + cookies.PHPSESSID, function(error, result)
   {
     if (error)
@@ -24,7 +24,7 @@ io.set('authorization', function(data, callback)
     }
     else if (result)
     {
-      data.session = JSON.parse(result);
+      handshake.session = JSON.parse(result);
       callback(null, true);
     }
     else
