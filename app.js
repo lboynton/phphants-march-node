@@ -16,12 +16,10 @@ server.listen(3000);
 io.set('authorization', function(data, callback)
 {
   var cookies = cookie.parse(data.headers.cookie);
-  console.log(cookies);
   mcClient.get('sessions/' + cookies.PHPSESSID, function(error, result)
   {
     if (error)
     {
-      console.log('error');
       callback(error, false);
     }
     else if (result)
