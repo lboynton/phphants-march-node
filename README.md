@@ -1,4 +1,6 @@
-This is the Node.js side of the demo app I created for my [presentation](http://www.slideshare.net/leeboynton/integrating-nodejs-with-php-march-2013-1) at the [PHPHants](http://www.phphants.co.uk/) March meet up.
+This is the Node.js side of the demo app I created for my [presentation](http://www.slideshare.net/leeboynton/integrating-nodejs-with-php-march-2013-1) at the [PHPHants](http://www.phphants.co.uk/) March 2013 meet up.
+
+There is also a corresponding [PHP application](https://github.com/lboynton/phphants-march-php).
 
 Running Guide
 ---
